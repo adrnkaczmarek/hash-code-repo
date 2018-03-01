@@ -30,11 +30,11 @@ if __name__ == '__main__':
     should_be_easy = np.genfromtxt('b_should_be_easy.in')
     no_hurry = np.genfromtxt('c_no_hurry.in')
 
-    general_data = example[0]
-    rides_data = example[1:]
-    vehicles = general_data[2]
-    rides = general_data[3]
-    steps = general_data[5]
+    general_data = no_hurry[0]
+    rides_data = no_hurry[1:]
+    vehicles = int(general_data[2])
+    rides = int(general_data[3])
+    steps = int(general_data[5])
     vehicle_info = np.zeros((vehicles, 3))
     output = []
 
@@ -70,4 +70,8 @@ if __name__ == '__main__':
                     vehicle_info[vehicle, 2] = min_ride + step + calculate_trip_time(rides_data[min_ride_index])
                     rides_data[min_ride_index, 6] = 1
 
-    print(output)
+    with open("test.txt", "w") as myfile:
+        for line in output:
+            for var in line:
+                myfile.write(str(var) + ' ')
+            myfile.write('\n')
