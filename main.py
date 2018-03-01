@@ -38,14 +38,16 @@ if __name__ == '__main__':
     vehicles = general_data[2]
     rides = general_data[3]
     steps = general_data[5]
-    current_vehicle_positions = np.zeros(vehicles, 2)
+    current_vehicle_positions = np.zeros((vehicles, 2))
 
     for step in range(steps):
         for vehicle in range(vehicles):
             min_ride = calculate_time(vehicle, 0, step)
+            min_ride_index = 0
 
             for ride in range(1, rides):
-                min_ride = calculate_time(vehicle, ride, step)
+                current_min_ride = calculate_time(vehicle, ride, step)
 
-    print(distance(1, 2, 4, 7))
-    print(example)
+                if current_min_ride < min_ride:
+                    min_ride = current_min_ride
+                    min_ride_index = ride
