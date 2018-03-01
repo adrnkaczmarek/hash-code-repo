@@ -8,7 +8,12 @@ def distance(a, b, x, y):
 
 def time_to_start_ride(car_x, car_y, ride_x, ride_y, current_time, start_time):
     dist = distance(car_x, car_y, ride_x, ride_y)
-    return (start_time - current_time) - dist
+    tmp = (start_time - current_time) - dist
+
+    if tmp < 0:
+        return dist
+    else:
+        return tmp
 
 
 def calculate_wait_time(vehicle_position, ride_info, step):
