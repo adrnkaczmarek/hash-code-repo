@@ -34,9 +34,10 @@ if __name__ == '__main__':
     example = np.genfromtxt('a_example.in', dtype='int')
     should_be_easy = np.genfromtxt('b_should_be_easy.in')
     no_hurry = np.genfromtxt('c_no_hurry.in')
+    metropolis = np.genfromtxt('d_metropolis.in')
 
-    general_data = no_hurry[0]
-    rides_data = no_hurry[1:]
+    general_data = metropolis[0]
+    rides_data = metropolis[1:]
     vehicles = int(general_data[2])
     rides = int(general_data[3])
     steps = int(general_data[5])
@@ -49,6 +50,7 @@ if __name__ == '__main__':
     rides_with_flag = np.zeros((rides, 7))
     rides_with_flag[:, :-1] = rides_data
     rides_data = rides_with_flag
+    min_calculation = 0
 
     for step in range(steps):
         for vehicle in range(vehicles):
@@ -62,7 +64,12 @@ if __name__ == '__main__':
                         current_min_ride = calculate_wait_time(vehicle_info[vehicle], rides_data[ride], step)
 
                         if current_min_ride >= 0:
-                            if current_min_ride < min_ride:
+                            if min_ride_index > -1:
+                                min_calculation = min_ride_index
+
+                            minimum = calculate_trip_time(rides_data[min_calculation])
+
+                            if current_min_ride < min_ride and minimum < 4000:
                                 min_ride = current_min_ride
                                 min_ride_index = ride
 
